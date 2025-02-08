@@ -2,12 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { TodoApp, TodoContext, TodoList } from "./Todos";
 import { UserData } from "./UserData";
 import { action, autorun } from "mobx";
-
-function parseBool(str: string | null | undefined): boolean {
-    if (str && str.toLowerCase() === 'true')
-        return true;
-    return false;
-}
+import { Header } from "./Header";
 
 function parseJson(str: string): TodoList[] {
     try {
@@ -26,16 +21,12 @@ export default function App() {
         setIsLoading(true)
         const td = todoAppRef.current;
 
-        td.darkTheme = parseBool(localStorage.getItem("darkTheme"));
-        autorun(() => localStorage.setItem("darkTheme", String(td.darkTheme)));
-
-
         const id = setTimeout(action(() => {
             td.todoLists = parseJson(localStorage.getItem("todoLists") ?? "[]");
             autorun(() => localStorage.setItem("todoLists", JSON.stringify(td.todoLists)));
             setIsLoading(false)
         }), 1000);
-        
+
         return () => {
             clearTimeout(id);
             setIsLoading(false);
@@ -44,6 +35,7 @@ export default function App() {
 
     return (
         <TodoContext.Provider value={todoAppRef.current}>
+            <Header />
             <UserData />
             {isLoading && <div>Loading...</div>}
         </TodoContext.Provider>
