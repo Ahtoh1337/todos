@@ -11,7 +11,8 @@ export const UserData = observer(function() {
                 id: todoApp.countLists,
                 pinned: false,
                 text: `Todo List #${todoApp.countLists}`,
-                todos: []
+                todos: [],
+                labels: []
             }))}>Add Todo List</button>
             <button className={bStyle} onClick={action(() => todoApp.todoLists.splice(0, todoApp.countLists))}>Clear</button>
 
