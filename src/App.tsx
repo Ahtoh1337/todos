@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { TodoApp, TodoContext, TodoList } from "./Todos";
 import { action, autorun } from "mobx";
 import { Header } from "./Header";
+import { TodoMain } from "./TodoMain";
 
 function parseJson(str: string): TodoList[] {
     try {
@@ -21,8 +22,13 @@ export default function App() {
         const td = todoAppRef.current;
 
         const id = setTimeout(action(() => {
+
             td.todoLists = parseJson(localStorage.getItem("todoLists") ?? "[]");
+            td._listNextId = Number(localStorage.getItem("nextListId"));
+
             autorun(() => localStorage.setItem("todoLists", JSON.stringify(td.todoLists)));
+            autorun(() => localStorage.setItem("nextListId", String(td._listNextId)));
+            
             setIsLoading(false)
         }), 1000);
 
@@ -35,6 +41,7 @@ export default function App() {
     return (
         <TodoContext.Provider value={todoAppRef.current}>
             <Header />
+            <TodoMain />
             {isLoading && <div>Loading...</div>}
         </TodoContext.Provider>
     )

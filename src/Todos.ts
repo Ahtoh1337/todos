@@ -5,24 +5,16 @@ export class Todo {
     id: number
     text: string
     done: boolean
-    term?: Date
 
-    #list: TodoList
-
-    static #nextId: number = 0;
+    static nextId: number = 0;
 
     constructor(text: string, list: TodoList) {
         makeAutoObservable(this, {
             id: false
         })
-        this.id = Todo.#nextId++;
+        this.id = list._todoNextId++;
         this.done = false;
         this.text = text;
-        this.#list = list;
-    }
-
-    delete() {
-        this.#list.todos.splice(this.#list.todos.indexOf(this), 1);
     }
 }
 
@@ -32,39 +24,30 @@ export type TodoListColor = "red" | "green" | "blue" | "yellow" | "pink" | "defa
 
 
 
-export interface Label {
-    test: string
-}
-
-
-
 export class TodoList {
     id: number
     pinned: boolean
     text: string
     color?: TodoListColor
     todos: Todo[]
-    labels: Label[]
+    labels: string[]
 
-    #app: TodoApp
-
-    static #nextId: number = 0;
+    _todoNextId: number = 0
 
     constructor(text: string, app: TodoApp) {
         makeAutoObservable(this, {
             id: false
         })
-        this.id = TodoList.#nextId++;
+        this.id = app._listNextId++;
         this.pinned = false;
         this.color = "default";
         this.todos = [];
         this.labels = [];
         this.text = text;
-        this.#app = app;
     }
 
-    delete() {
-        this.#app.todoLists.splice(this.#app.todoLists.indexOf(this), 1);
+    deleteTodo(todo: Todo) {
+        this.todos.splice(this.todos.indexOf(todo), 1);
     }
 }
 
@@ -73,10 +56,11 @@ export class TodoList {
 export class TodoApp {
     todoLists: TodoList[]
 
+    _listNextId: number = 0
+
     constructor(todoLists: TodoList[] = []) {
         makeAutoObservable(this);
         this.todoLists = todoLists;
-
     }
 
     get todoListCount() {
@@ -88,7 +72,7 @@ export class TodoApp {
     }
 
     get getLabels() {
-        const labels = new Map<Label, number>();
+        const labels = new Map<string, number>();
 
         this.todoLists.forEach(list => list.labels.forEach(label => {
             if (!labels.has(label))
@@ -98,12 +82,26 @@ export class TodoApp {
 
         return labels;
     }
+
+    deleteTodoList(list: TodoList) {
+        this.todoLists.splice(this.todoLists.indexOf(list), 1);
+    }
+
+    deleteTodo(todo: Todo) {
+        for (const list of this.todoLists) {
+            const i = list.todos.indexOf(todo);
+            if (i != -1) {
+                list.todos.splice(i, 1);
+                return;
+            }
+        }
+    }
 }
 
 
 
 export const TodoContext = createContext<TodoApp>(new TodoApp());
 
-export function useTodos() {
+export function useTodoApp() {
     return useContext(TodoContext);
 }
