@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
-import { TodoList } from "./Todos";
+import { Todo, TodoList } from "./Todos";
 import { action } from "mobx";
+import { TodoComp } from "./TodoComp";
 
 export const TodoListComp = observer(function ({ todoList }: { todoList: TodoList }) {
     const color = todoList.color ? `bg-${todoList.color}-700` : "";
@@ -24,8 +25,15 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
             </div>
             <ul>
                 {todoList.todos.map((t => (
-                    <li key={t.id}>{t.text}</li>
+                    <TodoComp key={t.id} todo={t} />
                 )))}
+                <li>
+                    <button
+                    onClick={action(() => todoList.todos.push(new Todo("New todo", todoList)))}
+                    className="px-2 hover:bg-blue-900">
+                        Add new todo...
+                    </button>
+                </li>
             </ul>
         </div>
     )

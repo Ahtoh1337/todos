@@ -4,7 +4,7 @@ import { createContext, useContext } from "react"
 export class Todo {
     id: number
     text: string
-    completed: boolean
+    done: boolean
     term?: Date
 
     #list: TodoList
@@ -16,13 +16,13 @@ export class Todo {
             id: false
         })
         this.id = Todo.#nextId++;
-        this.completed = false;
+        this.done = false;
         this.text = text;
         this.#list = list;
     }
 
     delete() {
-        this.#list.todos = this.#list.todos.filter(t => !Object.is(t, this))
+        this.#list.todos.splice(this.#list.todos.indexOf(this), 1);
     }
 }
 
@@ -64,7 +64,7 @@ export class TodoList {
     }
 
     delete() {
-        this.#app.todoLists = this.#app.todoLists.filter(l => !Object.is(this, l));
+        this.#app.todoLists.splice(this.#app.todoLists.indexOf(this), 1);
     }
 }
 
