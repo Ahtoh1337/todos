@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { TodoApp, TodoContext, TodoList } from "./Todos";
-import { UserData } from "./UserData";
 import { action, autorun } from "mobx";
 import { Header } from "./Header";
 
@@ -36,7 +35,6 @@ export default function App() {
     return (
         <TodoContext.Provider value={todoAppRef.current}>
             <Header />
-            <UserData />
             {isLoading && <div>Loading...</div>}
         </TodoContext.Provider>
     )
