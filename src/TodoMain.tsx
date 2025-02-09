@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { TodoList, useTodoApp } from "./Todos";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { action } from "mobx";
 import { SearchBar } from "./SearchBar";
 import { LabelNav } from "./LabelNav";
@@ -14,16 +14,17 @@ interface FilterOptions {
 export const TodoMain = observer(function () {
     const todoApp = useTodoApp();
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
-        searchString: "",
-        label: ""
+        searchString: '',
+        label: ''
     });
 
-    const filteredLists: TodoList[] = useMemo(() => {
-        return todoApp.todoLists.filter(list => list.text.trim().toLowerCase().includes(filterOptions.searchString.trim().toLowerCase()));
-    }, [todoApp.todoLists, filterOptions])
+    const filteredLists: TodoList[] = todoApp.todoLists
+        .filter(list =>
+            list.text.trim().toLowerCase().includes(filterOptions.searchString.trim().toLowerCase())
+            && (filterOptions.label === "" || list.labels.includes(filterOptions.label)));
 
     const handleTodoListCreation = action(function () {
-        todoApp.todoLists.unshift(new TodoList("New", todoApp));
+        todoApp.addTodoList("New")
     });
 
     const handleTodoListClear = action(function () {
@@ -46,6 +47,9 @@ export const TodoMain = observer(function () {
             <SearchBar value={filterOptions.searchString} onChange={handleSearchInputChange} />
             <LabelNav current={filterOptions.label} onSelect={handleLabelSelection} />
             <TodoLists lists={filteredLists} />
+            <pre>
+                {JSON.stringify(todoApp, null, 2)}
+            </pre>
         </div>
     )
 })

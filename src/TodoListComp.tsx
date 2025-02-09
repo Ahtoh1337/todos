@@ -1,7 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { Todo, TodoList, useTodoApp } from "./Todos";
+import { TodoList, useTodoApp } from "./Todos";
 import { action } from "mobx";
 import { TodoComp } from "./TodoComp";
+import { LabelComp } from "./LabelComp";
 
 export const TodoListComp = observer(function ({ todoList }: { todoList: TodoList }) {
     const color = todoList.color ? `bg-${todoList.color}-700` : "";
@@ -28,54 +29,36 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                 {todoList.todos.map((t => (
                     <TodoComp key={t.id} todo={t} />
                 )))}
-                <li>
-                    <button
-                        onClick={action(() => todoList.todos.push(new Todo("New todo", todoList)))}
-                        className="px-2 hover:bg-blue-900">
-                        Add new todo...
-                    </button>
+                <li className="@container">
+                    <input
+                        className="@w-max"
+                        placeholder="Add todo..."
+                        defaultValue=""
+                        onBlur={(e) => {
+                            todoApp.addTodo(e.target.value, todoList);
+                            e.target.value = "";
+                        }}
+                        onKeyDown={e => {
+                            if (e.key === "Enter")
+                                e.currentTarget.blur();
+                        }}
+                        maxLength={40}
+                    />
                 </li>
             </ul>
             <ul>
                 {todoList.labels.map((l, i) => (
                     <LabelComp key={l}
                         label={l}
-                        onDelete={action(() => todoList.labels.splice(i, 1))}
-                        onBlur={action((text) => {
-                            if (todoList.labels.filter(label => label === text).length > 1)
-                                todoList.labels.splice(i, 1);
-                            else todoList.labels[i] = text;
-                        })} />
+                        onDelete={() => todoApp.deleteLabel(i, todoList)}
+                        onBlur={(text) => todoApp.updateLabel(text, i, todoList)}
+                        placeholder="Label..." />
                 ))}
-                <li className="inline border-l-2 px-1 border-l-gray-400 text-sm hover:bg-gray-600">
-                    <button
-                    onClick={action(() => {
-                        let count = 1;
-                        while(true) {
-                            const name = `label ${count++}`;
-                            if (!todoList.labels.includes(name)) {
-                                todoList.labels.push(name);
-                                break;
-                            }
-                        }
-                    })}>
-                        +
-                    </button>
-                </li>
+                <LabelComp
+                    label=""
+                    onBlur={(text) => todoApp.addLabel(text, todoList)}
+                    placeholder="Add label..." />
             </ul>
         </div>
     )
 })
-
-function LabelComp({ label, onBlur, onDelete }: { label: string, onBlur: (text: string) => void, onDelete: () => void }) {
-    return (
-        <li className="inline border-l-2 px-1 border-l-gray-400 text-sm">
-            <input className="w-16" defaultValue={label} onBlur={e => { onBlur(e.target.value) }} />
-            <button
-                className="bg-red-900 hover:bg-red-700 px-1"
-                onClick={() => onDelete()}>
-                X
-            </button>
-        </li>
-    )
-}

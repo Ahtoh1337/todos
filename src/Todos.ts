@@ -45,10 +45,6 @@ export class TodoList {
         this.labels = [];
         this.text = text;
     }
-
-    deleteTodo(todo: Todo) {
-        this.todos.splice(this.todos.indexOf(todo), 1);
-    }
 }
 
 
@@ -83,8 +79,29 @@ export class TodoApp {
         return labels;
     }
 
+    addTodoList(text: string) {
+        this.todoLists.unshift(new TodoList(text, this));
+    }
+
     deleteTodoList(list: TodoList) {
         this.todoLists.splice(this.todoLists.indexOf(list), 1);
+    }
+
+    addTodo(text: string, list: TodoList) {
+        text = text.trim();
+        if (text === "")
+            return false;
+
+        list.todos.push(new Todo(text, list));
+        return true;
+    }
+
+    updateTodo(text: string, todo: Todo) {
+        text = text.trim();
+        if (text === "")
+            return false;
+        todo.text = text;
+        return true;
     }
 
     deleteTodo(todo: Todo) {
@@ -95,6 +112,26 @@ export class TodoApp {
                 return;
             }
         }
+    }
+
+    addLabel(text: string, list: TodoList) {
+        text = text.trim();
+        if (text === "" || list.labels.includes(text))
+            return false;
+        list.labels.push(text);
+        return true;
+    }
+
+    updateLabel(text: string, index: number, list: TodoList) {
+        text = text.trim();
+        if (text === "" || list.labels.includes(text))
+            return false;
+        list.labels[index] = text;
+        return true;
+    }
+
+    deleteLabel(index: number, list: TodoList) {
+        list.labels.splice(index, 1);
     }
 }
 
