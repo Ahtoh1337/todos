@@ -6,11 +6,13 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
         placeholder: string
     }) {
     return (
-        <li className="inline border-l-2 px-1 border-l-gray-400 text-sm">
+        <li className="text-xs font-bold
+        bg-indigo-300 text-indigo-100 pl-2 pr-1 m-0.5 rounded-full
+        flex w-23 flex-auto items-center">
             <input
+                className="py-1 w-full outline-none placeholder:text-indigo-200"
                 placeholder={placeholder}
-                maxLength={15}
-                className="w-20"
+                maxLength={10}
                 defaultValue={label}
                 onBlur={e => {
                     const result = onBlur(e.target.value)
@@ -22,15 +24,21 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
 
                 }}
                 onKeyDown={e => {
-                    if (e.key === "Enter")
+                    if (e.key === "Enter") {
                         e.currentTarget.blur();
+                        
+                    }
                 }} />
-            {typeof onDelete !== "undefined" &&
+            {typeof onDelete !== "undefined" ?
                 <button
-                    className="bg-red-900 hover:bg-red-700 px-1"
+                    className="flex-none h-3.5 w-3.5 rounded-full
+                    hover:bg-indigo-400
+                    active:bg-indigo-500 active:text-indigo-300"
                     onClick={() => onDelete()}>
                     X
                 </button>
+                :
+                <span className="text-indigo-300">X</span>
             }
         </li>
     )

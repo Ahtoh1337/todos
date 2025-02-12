@@ -6,19 +6,25 @@ export const LabelNav = observer(function ({ current, onSelect }: { current: str
 
     return (
         <ul>
-            <li
-                className={!current ? "bold italic" : ""}>
+            <li className="w-full">
                 <button
+                    className={`w-full p-2 pr-5
+                        font-bold rounded-r-full flex justify-between
+                        ${current === "" ? "bg-indigo-400 text-indigo-50 drop-shadow-md" : "text-indigo-500 hover:bg-indigo-200 hover:text-indigo-600"}`}
                     onClick={() => onSelect("")}>
-                    All ({todoApp.todoListCount})
+                    <span>All</span>
+                    <span>{todoApp.todoListCount}</span>
                 </button>
             </li>
             {Array.from(todoApp.getLabels).map(([label, count]) => (
-                <li
-                    key={label}
-                    className={label === current ? "bold underline italic" : ""}>
-                    <button onClick={() => onSelect(label)}>
-                        {label} ({count})
+                <li className="w-full">
+                    <button
+                        className={`w-full p-2 pr-5
+                    font-bold rounded-r-full flex justify-between
+                    ${current === label ? "bg-indigo-400 text-indigo-50 drop-shadow-md" : "text-indigo-500 hover:bg-indigo-200 hover:text-indigo-600"}`}
+                        onClick={() => onSelect(label)}>
+                        <span>{label}</span>
+                        <span>{count}</span>
                     </button>
                 </li>
             ))}

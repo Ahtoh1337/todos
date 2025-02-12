@@ -3,35 +3,45 @@ import { TodoList, useTodoApp } from "./Todos";
 import { action } from "mobx";
 import { TodoComp } from "./TodoComp";
 import { LabelComp } from "./LabelComp";
+import { useRef } from "react";
 
 export const TodoListComp = observer(function ({ todoList }: { todoList: TodoList }) {
-    const color = todoList.color ? `bg-${todoList.color}-700` : "";
     const todoApp = useTodoApp();
+
+    let addTodoRef = useRef<HTMLInputElement>(null);
     return (
-        <div className={`@container border-b-2 border-gray-400 p-2 m-2 ${color}`}>
-            <h2 className="text-xl bold">
-                ({todoList.id}){" "}
+        <div className="bg-indigo-200 px-3 py-2 rounded-lg drop-shadow-sm">
+            <div className="flex justify-between mb-1">
+                <button
+                    className={`w-7 h-7 rounded-full hover:bg-indigo-300 active:bg-indigo-400 ${todoList.pinned ? "outline-2 outline-dashed outline-indigo-400" : ""}`}
+                    onClick={action(() => todoList.pinned = !todoList.pinned)}>
+                    📌
+                </button>
+                <button
+                    className="w-7 h-7 rounded-full hover:bg-indigo-300 active:bg-indigo-400"
+                    onClick={() => todoApp.deleteTodoList(todoList)}>
+                    🗑
+                </button>
+            </div>
+            <h2>
                 <input
-                    className="border-b-2 border-gray-400 @w-max"
+                    className="outline-none border-b-3
+                    border-indigo-300
+                    w-full font-bold text-lg
+                    placeholder:text-indigo-300"
+                    placeholder="Todo List..."
                     defaultValue={todoList.text}
                     onBlur={action(e => todoList.text = e.target.value)}
                 />
             </h2>
-            <div>
-                <button className="px-2 hover:bg-blue-900" onClick={action(() => todoList.pinned = !todoList.pinned)}>
-                    {todoList.pinned ? "Unpin" : "Pin"}
-                </button>
-                <button className="px-2 hover:bg-blue-900" onClick={() => todoApp.deleteTodoList(todoList)}>
-                    Delete
-                </button>
-            </div>
             <ul>
                 {todoList.todos.map((t => (
                     <TodoComp key={t.id} todo={t} />
                 )))}
-                <li className="@container">
+                <li className="text-sm ml-5">
                     <input
-                        className="@w-max"
+                        ref={addTodoRef}
+                        className="py-1.5 pl-1 w-full outline-none"
                         placeholder="Add todo..."
                         defaultValue=""
                         onBlur={(e) => {
@@ -41,12 +51,13 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                         onKeyDown={e => {
                             if (e.key === "Enter")
                                 e.currentTarget.blur();
+                                addTodoRef.current?.focus();
                         }}
-                        maxLength={40}
+                        maxLength={30}
                     />
                 </li>
             </ul>
-            <ul>
+            <ul className="flex flex-wrap">
                 {todoList.labels.map((l, i) => (
                     <LabelComp key={l}
                         label={l}

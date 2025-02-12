@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { TodoList, useTodoApp } from "./Todos";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { action } from "mobx";
 import { SearchBar } from "./SearchBar";
 import { LabelNav } from "./LabelNav";
@@ -23,14 +23,22 @@ export const TodoMain = observer(function () {
             list.text.trim().toLowerCase().includes(filterOptions.searchString.trim().toLowerCase())
             && (filterOptions.label === "" || list.labels.includes(filterOptions.label)));
 
-    const handleTodoListCreation = action(function () {
-        todoApp.addTodoList("New")
-    });
+    useEffect(() => {
+        if (filterOptions.searchString === "" &&
+            filterOptions.label !== "" &&
+            filteredLists.length === 0) {
+            handleLabelSelection("");
+        }
+    }, [filteredLists]);
 
-    const handleTodoListClear = action(function () {
-        todoApp.todoLists.splice(0, todoApp.todoLists.length);
-        todoApp._listNextId = 0;
-    })
+    const handleTodoListCreation = action(function () {
+        const name = filterOptions.searchString.trim();
+        todoApp.addTodoList(name || "New")
+        if (filterOptions.label !== "") {
+            const newList = todoApp.todoLists[0];
+            todoApp.addLabel(filterOptions.label, newList);
+        }
+    });
 
     const handleLabelSelection = action(function (label: string) {
         setFilterOptions({ ...filterOptions, label: label });
@@ -41,15 +49,20 @@ export const TodoMain = observer(function () {
     });
 
     return (
-        <div>
-            <button className="border-2 border-gray-400 hover:border-blue-800" onClick={handleTodoListCreation}>Create new todo list...</button>
-            <button className="border-2 border-gray-400 hover:border-blue-800 ml-2" onClick={handleTodoListClear}>Clear</button>
-            <SearchBar value={filterOptions.searchString} onChange={handleSearchInputChange} />
+        <div className="@container grid grid-cols-[1fr_7fr] gap-y-4 gap-x-2 lg:gap-x-4 p-4 pl-0 text-indigo-800">
+            <div className="flex items-center pb-4 col-start-2">
+                <button className="font-bold bg-indigo-400 text-indigo-50
+                    hover:bg-indigo-500 hover:text-indigo-100
+                    active:bg-indigo-600
+                    rounded-full drop-shadow-lg
+                    p-3 px-4 mr-4"
+                    onClick={handleTodoListCreation}>
+                    Create new list...
+                </button>
+                <SearchBar value={filterOptions.searchString} onChange={handleSearchInputChange} />
+            </div>
             <LabelNav current={filterOptions.label} onSelect={handleLabelSelection} />
             <TodoLists lists={filteredLists} />
-            <pre>
-                {JSON.stringify(todoApp, null, 2)}
-            </pre>
         </div>
     )
 })
