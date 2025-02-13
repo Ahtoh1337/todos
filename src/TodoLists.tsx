@@ -7,8 +7,7 @@ export const TodoLists = observer(function ({ lists }: { lists: TodoList[] }) {
         <div className="
         grid items-baseline gap-y-4
         gap-x-2 lg:gap-x-3
-        grid-cols-1 md:grid-cols-2 xl:grid-cols-3
-        2xl:grid-cols-4">
+        grid-cols-[repeat(auto-fill,_minmax(17rem,auto))]">
             {lists.map(l => (<TodoListComp key={l.id} todoList={l} />))}
         </div>
     )
