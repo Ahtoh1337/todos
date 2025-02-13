@@ -56,7 +56,7 @@ export const TodoMain = observer(function () {
     });
 
     return (
-        <div className="@container grid grid-cols-[1fr_7fr] gap-y-4 gap-x-2 lg:gap-x-4 p-4 pl-0 text-indigo-800">
+        <div className="@container grid grid-cols-[minmax(9rem,1fr)_7fr] gap-y-4 gap-x-2 lg:gap-x-4 p-4 pl-0 text-indigo-800">
             <div className="flex items-center pb-4 col-start-2">
                 <button className="font-bold bg-indigo-400 text-indigo-50
                     hover:bg-indigo-500 hover:text-indigo-100
