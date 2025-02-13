@@ -21,7 +21,14 @@ export const TodoMain = observer(function () {
     const filteredLists: TodoList[] = todoApp.todoLists
         .filter(list =>
             list.text.trim().toLowerCase().includes(filterOptions.searchString.trim().toLowerCase())
-            && (filterOptions.label === "" || list.labels.includes(filterOptions.label)));
+            && (filterOptions.label === "" || list.labels.includes(filterOptions.label)))
+        .sort((a, b) => {
+            if (a.pinned === b.pinned)
+                return 0;
+            if (a.pinned && !b.pinned)
+                return -1;
+            return 1;
+        });
 
     useEffect(() => {
         if (filterOptions.searchString === "" &&
