@@ -17,7 +17,7 @@ export const TodoMain = observer(function () {
         searchString: '',
         label: ''
     });
-    const [showNav, setShowNav] = useState(true);
+    const [showNav, setShowNav] = useState(false);
 
     const filteredLists: TodoList[] = todoApp.todoLists
         .filter(list =>
@@ -60,15 +60,17 @@ export const TodoMain = observer(function () {
         <div className="@container sm:grid grid-cols-[minmax(9rem,1fr)_7fr]
             gap-y-4 gap-x-2 lg:gap-x-4 py-4 px-2 sm:px-4 sm:pl-0
             text-indigo-800">
-            <div className="flex items-center col-start-2
-            pb-4">
+            <div className="sticky top-2 sm:static z-1
+            flex items-center col-start-2
+            pb-4 mr-14 sm:mr-0">
                 <button className="font-bold bg-indigo-400 text-indigo-50
                     hover:bg-indigo-500 hover:text-indigo-100
                     active:bg-indigo-600
                     rounded-full drop-shadow-lg
-                    p-3 px-4 mr-2 sm:mr-4"
+                    p-3 px-4 mr-2 sm:mr-4 flex-none"
                     onClick={handleTodoListCreation}>
-                    New list...
+                    <span className="after:content-['New']
+                    sm:after:content-['New_list...']"></span>
                 </button>
                 <SearchBar value={filterOptions.searchString} onChange={handleSearchInputChange} />
             </div>

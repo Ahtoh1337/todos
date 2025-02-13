@@ -48,7 +48,7 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                     </p>
                     <div className="flex justify-around items-center">
                         <button
-                            className="px-2 rounded-full
+                            className="py-3 sm:py-0 px-3.5 sm:px-2 rounded-full
                             bg-indigo-600
                             hover:bg-indigo-800 hover:text-indigo-100
                             hover:drop-shadow-sm"
@@ -59,7 +59,7 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                             Yes
                         </button>
                         <button
-                            className="px-2 rounded-full
+                            className="py-3 sm:py-0 px-3.5 sm:px-2 rounded-full
                             bg-indigo-300
                             hover:bg-indigo-500 hover:text-indigo-100
                             hover:drop-shadow-sm"

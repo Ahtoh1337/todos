@@ -20,15 +20,17 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
             ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}>
             <div className="flex justify-between mb-1">
                 <button
-                    className={`w-7 h-7 rounded-full
-                        hover:bg-indigo-300 active:bg-indigo-400
+                    className={`w-10 h-10 sm:w-7 sm:h-7
+                        text-lg rounded-full
+                        sm:hover:bg-indigo-300 active:bg-indigo-400
                         ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dashed outline-indigo-400" : ""}`}
                     onClick={action(() => todoList.pinned = !todoList.pinned)}>
                     📌
                 </button>
                 <ConfirmButton
-                    className="w-7 h-7 rounded-full
-                    hover:bg-indigo-300 active:bg-indigo-400
+                    className="w-10 h-10 sm:w-7 sm:h-7
+                    text-lg rounded-full
+                    sm:hover:bg-indigo-300 active:bg-indigo-400
                     disabled:hidden"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
                     confirmText={`Delete ${shortText}?`}
@@ -63,6 +65,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                     )))}
                     <li className="text-sm ml-5">
                         <input
+                            type="text"
                             ref={addTodoRef}
                             className="py-1.5 pl-1 w-full outline-none"
                             placeholder="Add todo..."
@@ -72,11 +75,13 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                                 e.target.value = "";
                             }}
                             onKeyDown={e => {
-                                if (e.key === "Enter")
+                                if (e.key === "Enter") {
                                     e.currentTarget.blur();
+                                }
+                                    
                                 addTodoRef.current?.focus();
                             }}
-                            maxLength={30}
+                            maxLength={40}
                         />
                     </li>
                 </ul>

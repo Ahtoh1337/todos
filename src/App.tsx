@@ -28,7 +28,7 @@ export default function App() {
 
             autorun(() => localStorage.setItem("todoLists", JSON.stringify(td.todoLists)));
             autorun(() => localStorage.setItem("nextListId", String(td._listNextId)));
-            
+
             setIsLoading(false)
         }), 1000);
 
@@ -42,7 +42,10 @@ export default function App() {
         <TodoContext.Provider value={todoAppRef.current}>
             <Header />
             <TodoMain />
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <div className="text-indigo-400
+            py-4 px-6 font-bold">
+                Loading...
+            </div>}
         </TodoContext.Provider>
     )
 }

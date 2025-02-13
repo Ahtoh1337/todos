@@ -71,7 +71,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
             </div>
             <button className="sm:hidden rounded-md
             bg-indigo-400 text-indigo-100
-            h-14 w-14 text-4xl
+            h-12 w-12 text-3xl
             fixed top-2 right-2 z-1
             active:bg-indigo-500"
                 onClick={e => {

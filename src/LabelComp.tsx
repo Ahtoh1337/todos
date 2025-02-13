@@ -6,11 +6,13 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
         placeholder: string
     }) {
     return (
-        <li className="text-xs font-bold py-1 sm:py-0
-        bg-indigo-300 text-indigo-100 pl-2 pr-1 m-0.5 rounded-full
-        flex w-23 flex-auto items-center">
+        <li className="text-xs font-bold
+        bg-indigo-300 text-indigo-100 pl-2 pr-0 sm:pr-1
+        m-0.5 rounded-full
+        flex w-20 flex-auto items-center">
             <input
-                className="py-1 w-full outline-none placeholder:text-indigo-200"
+                tabIndex={-1}
+                className="py-2 sm:py-1 w-full outline-none placeholder:text-indigo-200"
                 placeholder={placeholder}
                 maxLength={10}
                 defaultValue={label}
@@ -31,14 +33,18 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
                 }} />
             {typeof onDelete !== "undefined" ?
                 <button
-                    className="flex-none h-3.5 w-3.5 rounded-full
+                    className="flex-none rounded-full
+                    h-full sm:h-4
+                    w-8 sm:w-4
+                    
+                    text-base sm:text-xs
                     hover:bg-indigo-400
                     active:bg-indigo-500 active:text-indigo-300"
                     onClick={() => onDelete()}>
-                    X
+                    x
                 </button>
                 :
-                <span className="text-indigo-300">X</span>
+                <span className="nidden"></span>
             }
         </li>
     )

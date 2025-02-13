@@ -16,6 +16,7 @@ export const TodoComp = observer(function ({ todo }: { todo: Todo }) {
                 {todo.done ? "✔️" : ""}
             </button>
             <input
+                type="text"
                 className={`outline-none py-1.5 px-1 flex-1
                 ${todo.done ? "line-through decoration-2" : ""}`}
                 defaultValue={todo.text}
@@ -28,7 +29,7 @@ export const TodoComp = observer(function ({ todo }: { todo: Todo }) {
                     if (e.key === "Enter")
                         e.currentTarget.blur();
                 }}
-                maxLength={30} />
+                maxLength={40} />
             <button
             className="rounded-sm w-4.5 h-4.5
             hover:bg-indigo-300 active:bg-indigo-400
