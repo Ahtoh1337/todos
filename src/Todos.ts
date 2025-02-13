@@ -110,9 +110,13 @@ export class TodoApp {
 
     addLabel(text: string, list: TodoList) {
         text = text.trim();
+        
+        if (text === "")
+            return false;
+
         text = text[0].toUpperCase() + text.substring(1);
         
-        if (text === "" || list.labels.includes(text))
+        if (list.labels.includes(text))
             return false;
 
         list.labels.push(text);
@@ -121,6 +125,7 @@ export class TodoApp {
 
     updateLabel(text: string, index: number, list: TodoList) {
         text = text.trim();
+
         if (text === "" || list.labels.includes(text))
             return false;
         list.labels[index] = text;
