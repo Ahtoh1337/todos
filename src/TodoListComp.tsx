@@ -17,7 +17,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
         <div className={`bg-indigo-200 px-3 py-2 rounded-lg drop-shadow-sm
-        ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}
+            ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}
             style={{ zIndex: todoList.id + (todoList.pinned ? 1000 : 0) }}>
             <div className="flex justify-between mb-1">
                 <button
@@ -57,42 +57,44 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                     }}
                 />
             </h2>
-            <ul>
-                {todoList.todos.map((t => (
-                    <TodoComp key={t.id} todo={t} />
-                )))}
-                <li className="text-sm ml-5">
-                    <input
-                        ref={addTodoRef}
-                        className="py-1.5 pl-1 w-full outline-none"
-                        placeholder="Add todo..."
-                        defaultValue=""
-                        onBlur={(e) => {
-                            todoApp.addTodo(e.target.value, todoList);
-                            e.target.value = "";
-                        }}
-                        onKeyDown={e => {
-                            if (e.key === "Enter")
-                                e.currentTarget.blur();
-                            addTodoRef.current?.focus();
-                        }}
-                        maxLength={30}
-                    />
-                </li>
-            </ul>
-            <ul className="flex flex-wrap">
-                {todoList.labels.map((l, i) => (
-                    <LabelComp key={l}
-                        label={l}
-                        onDelete={() => todoApp.deleteLabel(i, todoList)}
-                        onBlur={(text) => todoApp.updateLabel(text, i, todoList)}
-                        placeholder="Label..." />
-                ))}
-                <LabelComp
-                    label=""
-                    onBlur={(text) => todoApp.addLabel(text, todoList)}
-                    placeholder="Add label..." />
-            </ul>
+            <div className="flex flex-col min-h-49 justify-between">
+                <ul>
+                    {todoList.todos.map((t => (
+                        <TodoComp key={t.id} todo={t} />
+                    )))}
+                    <li className="text-sm ml-5">
+                        <input
+                            ref={addTodoRef}
+                            className="py-1.5 pl-1 w-full outline-none"
+                            placeholder="Add todo..."
+                            defaultValue=""
+                            onBlur={(e) => {
+                                todoApp.addTodo(e.target.value, todoList);
+                                e.target.value = "";
+                            }}
+                            onKeyDown={e => {
+                                if (e.key === "Enter")
+                                    e.currentTarget.blur();
+                                addTodoRef.current?.focus();
+                            }}
+                            maxLength={30}
+                        />
+                    </li>
+                </ul>
+                <ul className="flex flex-wrap">
+                    {todoList.labels.map((l, i) => (
+                        <LabelComp key={l}
+                            label={l}
+                            onDelete={() => todoApp.deleteLabel(i, todoList)}
+                            onBlur={(text) => todoApp.updateLabel(text, i, todoList)}
+                            placeholder="Label..." />
+                    ))}
+                    <LabelComp
+                        label=""
+                        onBlur={(text) => todoApp.addLabel(text, todoList)}
+                        placeholder="Add label..." />
+                </ul>
+            </div>
         </div>
     )
 })

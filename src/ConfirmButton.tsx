@@ -38,7 +38,9 @@ export default function ConfirmButton({ children, className, confirmText, onConf
             {popup &&
                 <div ref={popupRef}
                     className="absolute rounded-md p-2
-                    bg-indigo-400 text-indigo-50 font-bold
+                    bg-indigo-400 text-indigo-50
+                    bg-linear-to-b from-indigo-600/50
+                    font-bold
                     right-0 min-w-40 text-center
                     drop-shadow-md">
                     <p className="mb-2">
@@ -48,7 +50,8 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                         <button
                             className="px-2 rounded-full
                             bg-indigo-600
-                            hover:bg-indigo-800 hover:text-indigo-100"
+                            hover:bg-indigo-800 hover:text-indigo-100
+                            hover:drop-shadow-sm"
                             onClick={() => {
                                 onConfirm();
                                 setPopup(false);
@@ -58,7 +61,8 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                         <button
                             className="px-2 rounded-full
                             bg-indigo-300
-                            hover:bg-indigo-500 hover:text-indigo-100"
+                            hover:bg-indigo-500 hover:text-indigo-100
+                            hover:drop-shadow-sm"
                             onClick={() => setPopup(false)}>
                             No
                         </button>
