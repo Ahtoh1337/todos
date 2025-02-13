@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function ConfirmButton({ children, className, confirmText, onConfirm, disabled }:
     {
@@ -10,19 +10,37 @@ export default function ConfirmButton({ children, className, confirmText, onConf
     }) {
     const [popup, setPopup] = useState(false);
 
+    let popupRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClick(e: MouseEvent) {
+            if (popup && !popupRef.current?.contains(e.target as Node)) {
+                setPopup(false);
+            }
+        }
+
+        document.addEventListener('click', handleClick)
+
+        return () => document.removeEventListener('click', handleClick);
+    }, [popup])
+
     return (
         <div className="relative">
             <button
                 disabled={disabled}
                 className={className}
-                onClick={() => setPopup(!popup)}>
+                onClick={(e) => {
+                    setPopup(!popup)
+                    e.stopPropagation();
+                }}>
                 {children}
             </button>
             {popup &&
-                <div className="absolute rounded-md p-2
-                bg-indigo-400 text-indigo-50 font-bold
-                right-0 min-w-40 text-center
-                drop-shadow-md">
+                <div ref={popupRef}
+                    className="absolute rounded-md p-2
+                    bg-indigo-400 text-indigo-50 font-bold
+                    right-0 min-w-40 text-center
+                    drop-shadow-md">
                     <p className="mb-2">
                         {confirmText}
                     </p>

@@ -9,6 +9,11 @@ import ConfirmButton from "./ConfirmButton";
 export const TodoListComp = observer(function ({ todoList }: { todoList: TodoList }) {
     const todoApp = useTodoApp();
 
+    const maxl = 15;
+    const shortText = todoList.text.length > maxl ?
+        todoList.text.substring(0, maxl - 3) + "..." :
+        todoList.text;
+
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
         <div className={`bg-indigo-200 px-3 py-2 rounded-lg drop-shadow-sm
@@ -16,14 +21,19 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
             style={{ zIndex: todoList.id + (todoList.pinned ? 1000 : 0) }}>
             <div className="flex justify-between mb-1">
                 <button
-                    className={`w-7 h-7 rounded-full hover:bg-indigo-300 active:bg-indigo-400 ${todoList.pinned ? "outline-2 outline-dashed outline-indigo-400" : ""}`}
+                    className={`w-7 h-7 rounded-full
+                        hover:bg-indigo-300 active:bg-indigo-400
+                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dashed outline-indigo-400" : ""}`}
                     onClick={action(() => todoList.pinned = !todoList.pinned)}>
                     📌
                 </button>
                 <ConfirmButton
-                    className="w-7 h-7 rounded-full hover:bg-indigo-300 active:bg-indigo-400"
+                    className="w-7 h-7 rounded-full
+                    hover:bg-indigo-300 active:bg-indigo-400
+                    disabled:hidden"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
-                    confirmText={`Delete ${todoList.text}?`}>
+                    confirmText={`Delete ${shortText}?`}
+                    disabled={todoList.pinned}>
                     🗑
                 </ConfirmButton>
             </div>
