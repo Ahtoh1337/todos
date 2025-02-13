@@ -17,7 +17,12 @@ export const LabelNav = observer(function ({ current, onSelect }: { current: str
                         <span>{todoApp.todoListCount}</span>
                     </button>
                 </li>
-                {Array.from(todoApp.getLabels).map(([label, count]) => (
+                {Array.from(todoApp.getLabels).sort((a, b) => {
+                    const result = b[1] - a[1];
+                    if (result === 0)
+                        return a[0].toLowerCase().localeCompare(b[0])
+                    return result;
+                }).map(([label, count]) => (
                     <li className="w-full" key={label}>
                         <button
                             className={`w-full p-2 pr-5
