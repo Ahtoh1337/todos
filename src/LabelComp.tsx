@@ -6,7 +6,7 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
         placeholder: string
     }) {
     return (
-        <li className="text-xs font-bold
+        <li className="text-xs font-bold py-1 sm:py-0
         bg-indigo-300 text-indigo-100 pl-2 pr-1 m-0.5 rounded-full
         flex w-23 flex-auto items-center">
             <input

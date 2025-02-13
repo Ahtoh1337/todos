@@ -17,6 +17,7 @@ export const TodoMain = observer(function () {
         searchString: '',
         label: ''
     });
+    const [showNav, setShowNav] = useState(true);
 
     const filteredLists: TodoList[] = todoApp.todoLists
         .filter(list =>
@@ -56,11 +57,11 @@ export const TodoMain = observer(function () {
     });
 
     return (
-        <div className="@container grid grid-cols-[minmax(9rem,1fr)_7fr]
-            gap-y-4 gap-x-2 lg:gap-x-4 p-4 pl-0
+        <div className="@container sm:grid grid-cols-[minmax(9rem,1fr)_7fr]
+            gap-y-4 gap-x-2 lg:gap-x-4 py-4 px-2 sm:px-4 sm:pl-0
             text-indigo-800">
             <div className="flex items-center col-start-2
-            sm:pb-4">
+            pb-4">
                 <button className="font-bold bg-indigo-400 text-indigo-50
                     hover:bg-indigo-500 hover:text-indigo-100
                     active:bg-indigo-600
@@ -71,7 +72,11 @@ export const TodoMain = observer(function () {
                 </button>
                 <SearchBar value={filterOptions.searchString} onChange={handleSearchInputChange} />
             </div>
-            <LabelNav current={filterOptions.label} onSelect={handleLabelSelection} />
+            <LabelNav
+                current={filterOptions.label}
+                onSelect={handleLabelSelection}
+                setShowNav={setShowNav}
+                show={showNav}/>
             <TodoLists lists={filteredLists} />
         </div>
     )

@@ -17,8 +17,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
         <div className={`bg-indigo-200 px-3 py-2 rounded-lg drop-shadow-sm
-            ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}
-            style={{ zIndex: todoList.id + (todoList.pinned ? 1000 : 0) }}>
+            ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}>
             <div className="flex justify-between mb-1">
                 <button
                     className={`w-7 h-7 rounded-full

@@ -16,7 +16,8 @@ export const TodoComp = observer(function ({ todo }: { todo: Todo }) {
                 {todo.done ? "✔️" : ""}
             </button>
             <input
-                className={`outline-none py-1.5 px-1 flex-1 ${todo.done ? "line-through decoration-2" : ""}`}
+                className={`outline-none py-1.5 px-1 flex-1
+                ${todo.done ? "line-through decoration-2" : ""}`}
                 defaultValue={todo.text}
                 placeholder="Todo text..."
                 onBlur={e => {
