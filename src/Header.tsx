@@ -12,11 +12,5 @@ export const Header = observer(function () {
         first-letter:font-bold">
             {import.meta.env.VITE_APP_TITLE}
         </div>
-        <button className="bg-linear-to-r from-indigo-400 to-indigo-700
-        px-2 rounded-full
-        drop-shadow-sm border-2 border-indigo-50
-        hover:from-indigo-500 hover:to-indigo-800 hover:border-indigo-300">
-            ☀️ 🌙
-        </button>
     </div>
 })

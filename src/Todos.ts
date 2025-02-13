@@ -20,15 +20,10 @@ export class Todo {
 
 
 
-export type TodoListColor = "red" | "green" | "blue" | "yellow" | "pink" | "default";
-
-
-
 export class TodoList {
     id: number
     pinned: boolean
     text: string
-    color?: TodoListColor
     todos: Todo[]
     labels: string[]
 
@@ -40,7 +35,6 @@ export class TodoList {
         })
         this.id = app._listNextId++;
         this.pinned = false;
-        this.color = "default";
         this.todos = [];
         this.labels = [];
         this.text = text;
