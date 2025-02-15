@@ -73,6 +73,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
             bg-indigo-400 text-indigo-100
             h-12 w-12 text-3xl
             fixed top-2 right-2 z-1
+            transition-colors
             active:bg-indigo-500"
                 onClick={e => {
                     e.stopPropagation();
