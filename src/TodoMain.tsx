@@ -11,6 +11,10 @@ interface FilterOptions {
     label: string
 }
 
+function prepareForSearch(s: string): string {
+    return s.replace(/\s+/g, "").toLowerCase();
+}
+
 export const TodoMain = observer(function () {
     const todoApp = useTodoApp();
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
@@ -19,10 +23,21 @@ export const TodoMain = observer(function () {
     });
     const [showNav, setShowNav] = useState(false);
 
+    const search = prepareForSearch(filterOptions.searchString);
+
+    function matchSearch(list: TodoList): boolean {
+        if (filterOptions.label !== "" && !list.labels.includes(filterOptions.label))
+            return false;
+
+        if (prepareForSearch(list.text).includes(search) ||
+            list.todos.some(t => prepareForSearch(t.text).includes(search)))
+            return true;
+
+        return false;
+    }
+
     const filteredLists: TodoList[] = todoApp.todoLists
-        .filter(list =>
-            list.text.trim().toLowerCase().includes(filterOptions.searchString.trim().toLowerCase())
-            && (filterOptions.label === "" || list.labels.includes(filterOptions.label)))
+        .filter(list => matchSearch(list))
         .sort((a, b) => {
             if (a.pinned === b.pinned)
                 return 0;
@@ -79,7 +94,7 @@ export const TodoMain = observer(function () {
                 current={filterOptions.label}
                 onSelect={handleLabelSelection}
                 setShowNav={setShowNav}
-                show={showNav}/>
+                show={showNav} />
             <TodoLists lists={filteredLists} />
         </div>
     )
