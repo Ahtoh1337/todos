@@ -64,10 +64,11 @@ export const TodoMain = observer(function () {
             flex items-center col-start-2
             pb-4 mr-14 sm:mr-0">
                 <button className="font-bold bg-indigo-400 text-indigo-50
-                    hover:bg-indigo-500 hover:text-indigo-100
+                    sm:hover:bg-indigo-500 sm:hover:text-indigo-100
                     active:bg-indigo-600
                     rounded-full drop-shadow-lg
-                    p-3 px-4 mr-2 sm:mr-4 flex-none"
+                    p-3 px-4 mr-2 sm:mr-4 flex-none
+                    transition-colors sm:transition-none"
                     onClick={handleTodoListCreation}>
                     <span className="after:content-['New']
                     sm:after:content-['New_list...']"></span>

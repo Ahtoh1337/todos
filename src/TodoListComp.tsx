@@ -17,21 +17,26 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
         <div className={`bg-indigo-200 px-3 py-2 rounded-lg drop-shadow-sm
+            transition-colors duration-300 sm:transition-none
             ${todoList.pinned ? "bg-linear-to-b from-indigo-300/80" : ""}`}>
             <div className="flex justify-between mb-1">
                 <button
                     className={`w-10 h-10 sm:w-7 sm:h-7
                         text-lg rounded-full
-                        sm:hover:bg-indigo-300 active:bg-indigo-400
-                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dashed outline-indigo-400" : ""}`}
+                        transition-all sm:transition-none duration-300
+                        active:bg-indigo-300
+                        sm:hover:bg-indigo-300 sm:active:bg-indigo-400
+                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dotted outline-indigo-400/50" : ""}`}
                     onClick={action(() => todoList.pinned = !todoList.pinned)}>
                     📌
                 </button>
                 <ConfirmButton
                     className="w-10 h-10 sm:w-7 sm:h-7
                     text-lg rounded-full
-                    sm:hover:bg-indigo-300 active:bg-indigo-400
-                    disabled:hidden"
+                    active:bg-indigo-300
+                    transition-colors sm:transition-none duration-300
+                    sm:hover:bg-indigo-300 sm:active:bg-indigo-400
+                    disabled:text-indigo-50/0"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
                     confirmText={`Delete ${shortText}?`}
                     disabled={todoList.pinned}>
