@@ -73,15 +73,14 @@ export const TodoMain = observer(function () {
 
     return (
         <div className="@container sm:grid grid-cols-[minmax(9rem,1fr)_7fr]
-            gap-y-4 gap-x-2 lg:gap-x-4 py-4 px-2 sm:px-4 sm:pl-0
-            text-indigo-800">
+            gap-y-4 gap-x-2 lg:gap-x-4 py-4 px-2 sm:px-4 sm:pl-0">
             <div className="sticky top-2 sm:static z-1
             flex items-center col-start-2
             pb-4 mr-14 sm:mr-0">
-                <button className="font-bold bg-indigo-400 text-indigo-50
-                    sm:hover:bg-indigo-500 sm:hover:text-indigo-100
-                    active:bg-indigo-600
-                    rounded-full drop-shadow-lg
+                <button className="font-bold bg-button-400 text-text-100
+                    active:bg-button-600 sm:active:bg-button-600
+                    sm:hover:bg-button-500 sm:hover:text-text-200
+                    rounded-full
                     p-3 px-4 mr-2 sm:mr-4 flex-none
                     transition-colors sm:transition-none"
                     onClick={handleTodoListCreation}>

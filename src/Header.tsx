@@ -2,14 +2,13 @@ import { observer } from "mobx-react-lite";
 
 export const Header = observer(function () {
     return <div className="w-full p-3.5 pr-
-    drop-shadow-lg bg-indigo-200 bg-gradient-to-b from-indigo-300
-    flex justify-between text-indigo-700">
-        <div className="text-3xl sm:text-2xl pl-2 pr-3
+    bg-header-100 bg-gradient-to-b from-header-200
+    flex justify-between">
+        <div className="text-3xl sm:text-2xl pl-2 pr-1
         border-l-2 border-b-2
-        border-indigo-700 rounded-l-full
-        bg-gradient-to-r from-indigo-400/40
-        drop-shadow-sm
-        first-letter:font-bold">
+        text-text-300
+        border-text-300 rounded-l-full
+        font-bold">
             {import.meta.env.VITE_APP_TITLE}
         </div>
     </div>

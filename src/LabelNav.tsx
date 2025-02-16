@@ -30,7 +30,8 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
             pt-19 pl-2 pr-0 w-60 h-full text-xl
             sm:relative sm:drop-shadow-none sm:p-0 sm:w-full
             sm:text-base sm:right-0
-            sm:bg-indigo-50 bg-indigo-100/90
+            text-button-500
+            sm:bg-background-50 bg-background-50/90
             flex flex-col items-end
             ${show ? "right-0" : ""}`}
                 ref={navbarRef}>
@@ -42,7 +43,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                         py-4  sm:py-2 
                         font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                         flex justify-between
-                        ${current === "" ? "bg-indigo-400 text-indigo-50 drop-shadow-md" : "text-indigo-500 hover:bg-indigo-200 hover:text-indigo-600"}`}
+                        ${current === "" ? "bg-button-400 text-text-100" : "text-button-500 hover:bg-button-300 hover:text-button-600"}`}
                             onClick={() => onSelect("")}>
                             <span>All</span>
                             <span>{todoApp.todoListCount}</span>
@@ -60,7 +61,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                                 py-4 sm:py-2
                     font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                     flex justify-between
-                    ${current === label ? "bg-indigo-400 text-indigo-50 drop-shadow-md" : "text-indigo-500 hover:bg-indigo-200 hover:text-indigo-600"}`}
+                    ${current === label ? "bg-button-400 text-text-100 drop-shadow-sm" : "text-button-500 hover:bg-button-300 hover:text-button-600"}`}
                                 onClick={() => onSelect(label)}>
                                 <span>{label}</span>
                                 <span>{count}</span>
@@ -69,12 +70,14 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                     ))}
                 </ul>
             </div>
-            <button className="sm:hidden rounded-md
-            bg-indigo-400 text-indigo-100
+            <button className={`sm:hidden rounded-md
             h-12 w-12 text-3xl
             fixed top-2 right-2 z-1
             transition-colors
-            active:bg-indigo-500"
+            bg-linear-to-b
+            ${show ? "bg-button-400 from-button-600"
+                : "bg-button-600 from-button-700"
+            }`}
                 onClick={e => {
                     e.stopPropagation();
                     setShowNav(!show)
