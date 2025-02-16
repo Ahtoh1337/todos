@@ -27,7 +27,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
         <>
             <div className={`fixed z-1 top-0 -right-60 drop-shadow-xl
             transition-all
-            pt-19 pl-2 pr-0 w-60 h-full text-xl
+            pt-19 pl-2 pr-0 w-60 h-[100vh] sm:h-full text-xl
             sm:relative sm:drop-shadow-none sm:p-0 sm:w-full
             sm:text-base sm:right-0
             text-button-500
@@ -43,7 +43,9 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                         py-4  sm:py-2 
                         font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                         flex justify-between
-                        ${current === "" ? "bg-button-400 text-text-100" : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
+                        ${current === ""
+                            ? "bg-button-400 text-text-100"
+                            : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
                             onClick={() => onSelect("")}>
                             <span>All</span>
                             <span>{todoApp.todoListCount}</span>
@@ -59,9 +61,11 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                             <button
                                 className={`w-full px-4 sm:pl-3
                                 py-4 sm:py-2
-                    font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
-                    flex justify-between
-                    ${current === label ? "bg-button-400 text-text-100 drop-shadow-sm" : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
+                                font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
+                                flex justify-between
+                                ${current === label
+                                    ? "bg-button-400 text-text-100 drop-shadow-sm"
+                                    : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
                                 onClick={() => onSelect(label)}>
                                 <span>{label}</span>
                                 <span>{count}</span>
@@ -71,7 +75,8 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                 </ul>
             </div>
             <button className={`sm:hidden rounded-md
-            h-12 w-12 text-3xl
+            text-text-100
+            h-12 w-12 text-5xl
             fixed top-2 right-2 z-1
             transition-colors
             bg-button-400`}
@@ -79,7 +84,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                     e.stopPropagation();
                     setShowNav(!show)
                 }}>
-                {show ? "✖️" : "🟰"}
+                {show ? "×" : "="}
             </button>
         </>
     )

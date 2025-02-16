@@ -10,7 +10,9 @@ export const TodoComp = observer(function ({ todo }: { todo: Todo }) {
         justify-start items-center">
             <button
                 className="outline-2 outline-default-list-200 rounded-sm w-4 h-4 flex-none
-                hover:bg-default-list-200 active:bg-default-list-300 mr-1
+                transition-colors sm:transition-none
+                active:bg-default-list-200
+                sm:hover:bg-default-list-200 sm:active:bg-default-list-300 mr-1
                 text-xs"
                 onClick={action(() => todo.done = !todo.done)}>
                 {todo.done ? "✔️" : ""}
