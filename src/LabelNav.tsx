@@ -43,7 +43,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                         py-4  sm:py-2 
                         font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                         flex justify-between
-                        ${current === "" ? "bg-button-400 text-text-100" : "text-button-500 hover:bg-button-300 hover:text-button-600"}`}
+                        ${current === "" ? "bg-button-400 text-text-100" : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
                             onClick={() => onSelect("")}>
                             <span>All</span>
                             <span>{todoApp.todoListCount}</span>
@@ -61,7 +61,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                                 py-4 sm:py-2
                     font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                     flex justify-between
-                    ${current === label ? "bg-button-400 text-text-100 drop-shadow-sm" : "text-button-500 hover:bg-button-300 hover:text-button-600"}`}
+                    ${current === label ? "bg-button-400 text-text-100 drop-shadow-sm" : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
                                 onClick={() => onSelect(label)}>
                                 <span>{label}</span>
                                 <span>{count}</span>
@@ -75,9 +75,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
             fixed top-2 right-2 z-1
             transition-colors
             bg-linear-to-b
-            ${show ? "bg-button-400 from-button-600"
-                : "bg-button-600 from-button-700"
-            }`}
+            bg-button-500 from-button-600`}
                 onClick={e => {
                     e.stopPropagation();
                     setShowNav(!show)

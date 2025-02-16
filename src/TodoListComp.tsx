@@ -16,11 +16,11 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
 
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
-        <div className={`bg-default-list-100 px-3 py-2 rounded-lg drop-shadow-sm
+        <div className={`px-3 py-2 rounded-lg drop-shadow-sm
             transition-colors duration-300 sm:transition-none
-            text-default-list-400 bg-linear-to-b
-            ${todoList.pinned ? "from-default-list-200/95 to-25% to-default-list-50/80"
-                : ""}`}>
+            text-default-list-400
+            ${todoList.pinned ? "bg-default-list-50"
+                : "bg-default-list-100"}`}>
             <div className="flex justify-between mb-1">
                 <button
                     className={`w-10 h-10 sm:w-7 sm:h-7
@@ -38,7 +38,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                     active:bg-default-list-200
                     transition-colors sm:transition-none duration-300
                     sm:hover:bg-default-list-200 sm:active:bg-default-list-300
-                    disabled:hidden"
+                    disabled:text-white/0"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
                     confirmText={`Delete ${shortText}?`}
                     disabled={todoList.pinned}>
