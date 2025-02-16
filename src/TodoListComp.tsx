@@ -18,27 +18,31 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
     return (
         <div className={`px-3 py-2 rounded-lg drop-shadow-sm
             transition-colors duration-300 sm:transition-none
-            text-default-list-400
-            ${todoList.pinned ? "bg-default-list-50"
-                : "bg-default-list-100"}`}>
+            text-default-list-400 bg-default-list-100
+            ${todoList.pinned ? "bg-linear-to-b from-default-list-200/90 to-50%"
+                : ""}`}>
             <div className="flex justify-between mb-1">
-                <button
-                    className={`w-10 h-10 sm:w-7 sm:h-7
+                <div className="flex">
+                    <button
+                        className={`mr-1 w-10 h-10 sm:w-7 sm:h-7
                         text-lg rounded-full
-                        transition-all sm:transition-none duration-300
+                        transition-colors sm:transition-none duration-300
                         active:bg-default-list-200
-                        sm:hover:bg-default-list-200 sm:active:bg-default-list-300
-                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dotted outline-default-list-300" : ""}`}
-                    onClick={action(() => todoList.pinned = !todoList.pinned)}>
-                    📌
-                </button>
+                        ${todoList.pinned
+                                ? "outline-2 -outline-offset-2 outline-dotted outline-default-list-300" +
+                                " sm:hover:bg-default-list-300 sm:active:bg-default-list-400 sm:active:outline-default-list-400"
+                                : "sm:hover:bg-default-list-200 sm:active:bg-default-list-300"}`}
+                        onClick={action(() => todoList.pinned = !todoList.pinned)}>
+                        📌
+                    </button>
+                </div>
                 <ConfirmButton
                     className="w-10 h-10 sm:w-7 sm:h-7
                     text-lg rounded-full
                     active:bg-default-list-200
-                    transition-colors sm:transition-none duration-300
+                    transition-all sm:transition-none duration-150
                     sm:hover:bg-default-list-200 sm:active:bg-default-list-300
-                    disabled:text-white/0"
+                    disabled:scale-0 disabled:text-white/0"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
                     confirmText={`Delete ${shortText}?`}
                     disabled={todoList.pinned}>
@@ -47,10 +51,12 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
             </div>
             <h2>
                 <input
-                    className="outline-none border-b-3
-                    border-default-list-200
+                    className={`outline-none border-b-3
                     w-full font-bold text-lg
-                    placeholder:text-default-list-200"
+                    placeholder:text-default-list-200
+                    ${todoList.pinned
+                            ? "border-default-list-300"
+                            : "border-default-list-200"}`}
                     placeholder="Todo List..."
                     defaultValue={todoList.text}
                     maxLength={40}
@@ -85,7 +91,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                                 if (e.key === "Enter") {
                                     e.currentTarget.blur();
                                 }
-                                    
+
                                 addTodoRef.current?.focus();
                             }}
                             maxLength={40}

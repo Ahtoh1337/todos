@@ -6,7 +6,7 @@ export const Header = observer(function () {
     flex justify-between">
         <div className="text-3xl sm:text-2xl pl-2 pr-1
         border-l-2 border-b-2
-        text-text-300
+        text-text-100
         border-text-300 rounded-l-full
         font-bold">
             {import.meta.env.VITE_APP_TITLE}

@@ -39,7 +39,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                 overflow-y-auto">
                     <li className="w-full">
                         <button
-                            className={`w-full px-4 sm:px-2 pr-5
+                            className={`w-full px-4 sm:pl-3
                         py-4  sm:py-2 
                         font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                         flex justify-between
@@ -57,7 +57,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                     }).map(([label, count]) => (
                         <li className="w-full" key={label}>
                             <button
-                                className={`w-full px-4 sm:px-2 pr-5
+                                className={`w-full px-4 sm:pl-3
                                 py-4 sm:py-2
                     font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                     flex justify-between
@@ -74,8 +74,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
             h-12 w-12 text-3xl
             fixed top-2 right-2 z-1
             transition-colors
-            bg-linear-to-b
-            bg-button-500 from-button-600`}
+            bg-button-400`}
                 onClick={e => {
                     e.stopPropagation();
                     setShowNav(!show)

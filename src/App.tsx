@@ -42,7 +42,7 @@ export default function App() {
         <TodoContext.Provider value={todoAppRef.current}>
             <Header />
             <TodoMain />
-            {isLoading && <div className="text-indigo-400
+            {isLoading && <div className="text-text-800
             py-4 px-6 font-bold">
                 Loading...
             </div>}
