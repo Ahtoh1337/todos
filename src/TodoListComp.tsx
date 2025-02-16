@@ -19,7 +19,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
         <div className={`bg-default-list-100 px-3 py-2 rounded-lg drop-shadow-sm
             transition-colors duration-300 sm:transition-none
             text-default-list-400 bg-linear-to-b
-            ${todoList.pinned ? "from-default-list-200/60 to-default-list-50"
+            ${todoList.pinned ? "from-default-list-200/95 to-25% to-default-list-50/80"
                 : ""}`}>
             <div className="flex justify-between mb-1">
                 <button
@@ -28,7 +28,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                         transition-all sm:transition-none duration-300
                         active:bg-default-list-200
                         sm:hover:bg-default-list-200 sm:active:bg-default-list-300
-                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dotted outline-default-list-200" : ""}`}
+                        ${todoList.pinned ? "outline-2 -outline-offset-2 outline-dotted outline-default-list-300" : ""}`}
                     onClick={action(() => todoList.pinned = !todoList.pinned)}>
                     📌
                 </button>

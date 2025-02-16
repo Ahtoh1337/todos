@@ -38,8 +38,8 @@ export default function ConfirmButton({ children, className, confirmText, onConf
             {popup &&
                 <div ref={popupRef}
                     className="absolute rounded-md p-2
-                    bg-indigo-400 text-indigo-50
-                    bg-linear-to-b from-indigo-600/50
+                    bg-button-300 text-text-50
+                    bg-linear-to-b from-button-400
                     font-bold
                     right-0 min-w-40 text-center
                     drop-shadow-md">
@@ -49,8 +49,8 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                     <div className="flex justify-around items-center">
                         <button
                             className="py-3 sm:py-0 px-3.5 sm:px-2 rounded-full
-                            bg-indigo-600
-                            hover:bg-indigo-800 hover:text-indigo-100
+                            bg-button-600
+                            hover:bg-button-700 hover:text-text-300
                             hover:drop-shadow-sm"
                             onClick={() => {
                                 onConfirm();
@@ -60,8 +60,8 @@ export default function ConfirmButton({ children, className, confirmText, onConf
                         </button>
                         <button
                             className="py-3 sm:py-0 px-3.5 sm:px-2 rounded-full
-                            bg-indigo-300
-                            hover:bg-indigo-500 hover:text-indigo-100
+                            bg-button-500
+                            hover:bg-button-600 hover:text-text-300
                             hover:drop-shadow-sm"
                             onClick={() => setPopup(false)}>
                             No
