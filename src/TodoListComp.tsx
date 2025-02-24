@@ -5,14 +5,10 @@ import { TodoComp } from "./TodoComp";
 import { LabelComp } from "./LabelComp";
 import { useRef } from "react";
 import ConfirmButton from "./ConfirmButton";
+import { shorten } from "./utils";
 
 export const TodoListComp = observer(function ({ todoList }: { todoList: TodoList }) {
     const todoApp = useTodoApp();
-
-    const maxl = 15;
-    const shortText = todoList.text.length > maxl ?
-        todoList.text.substring(0, maxl - 3) + "..." :
-        todoList.text;
 
     let addTodoRef = useRef<HTMLInputElement>(null);
     return (
@@ -44,7 +40,7 @@ export const TodoListComp = observer(function ({ todoList }: { todoList: TodoLis
                     sm:hover:bg-default-list-200 sm:active:bg-default-list-300
                     disabled:scale-0 disabled:text-white/0"
                     onConfirm={() => todoApp.deleteTodoList(todoList)}
-                    confirmText={`Delete ${shortText}?`}
+                    confirmText={`Delete ${shorten(todoList.text, 15)}?`}
                     disabled={todoList.pinned}>
                     🗑
                 </ConfirmButton>

@@ -14,7 +14,7 @@ export function LabelComp({ label, onBlur, onDelete, placeholder }:
                 tabIndex={-1}
                 className="py-2 sm:py-1 w-full outline-none placeholder:text-default-list-100"
                 placeholder={placeholder}
-                maxLength={10}
+                maxLength={20}
                 defaultValue={label}
                 onBlur={e => {
                     const result = onBlur(e.target.value)

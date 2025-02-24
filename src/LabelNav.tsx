@@ -26,7 +26,7 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
     return (
         <>
             <div className={`fixed z-1 top-0 -right-60 drop-shadow-xl
-            transition-all
+            transition-all sm:transition-none
             pt-19 pl-2 pr-0 w-60 h-[100vh] sm:h-full text-xl
             sm:relative sm:drop-shadow-none sm:p-0 sm:w-full
             sm:text-base sm:right-0
@@ -61,13 +61,16 @@ export const LabelNav = observer(function ({ current, show, onSelect, setShowNav
                             <button
                                 className={`w-full px-4 sm:pl-3
                                 py-4 sm:py-2
+                                gap-2
                                 font-bold rounded-l-full sm:rounded-r-full sm:rounded-l-none
                                 flex justify-between
                                 ${current === label
                                     ? "bg-button-400 text-text-100 drop-shadow-sm"
-                                    : "text-button-500 hover:bg-button-200 hover:text-button-600"}`}
+                                    : "text-button-500 hover:bg-button-200 hover:text-button-600"}
+                                ${label.length > 15}`}
                                 onClick={() => onSelect(label)}>
-                                <span>{label}</span>
+                                <span
+                                className="overflow-hidden">{label}</span>
                                 <span>{count}</span>
                             </button>
                         </li>

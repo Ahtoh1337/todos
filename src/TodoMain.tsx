@@ -72,7 +72,7 @@ export const TodoMain = observer(function () {
     });
 
     return (
-        <div className="@container sm:grid grid-cols-[minmax(9rem,1fr)_7fr]
+        <div className="@container sm:grid grid-cols-[minmax(11rem,1fr)_7fr]
             gap-y-4 gap-x-2 lg:gap-x-4 py-4 px-2 sm:px-4 sm:pl-0">
             <div className="sticky top-2 sm:static z-1
             flex items-center col-start-2
